@@ -1,7 +1,7 @@
 from PySide6.QtWidgets import QApplication, QMainWindow, QLabel, QWidget, QVBoxLayout, QComboBox, QPushButton
 from PySide6.QtCore import QSize, Qt, QMargins
 import frontend.clientUI as clientUI
-import frontend.adminUI as adminUI
+import frontend.authUI as authUI
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -47,7 +47,7 @@ class MainWindow(QMainWindow):
     def confirm_clicked(self):
         text = self.option.currentText()
         if text == "Admin":
-            self.adminWindow = adminUI.window()  
+            self.adminWindow = authUI.window()  
             self.adminWindow.show()
             self.hide()
         else:

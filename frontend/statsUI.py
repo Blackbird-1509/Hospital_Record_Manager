@@ -6,7 +6,6 @@ app = QApplication([])
 
 image_view = QLabel()
 image = QPixmap("C:/Users/User/Pictures/FINAL TIMETABLE.jpg")
-image.scaled()
 image_view.setPixmap(image)
 
 class window(QWidget):
