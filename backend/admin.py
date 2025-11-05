@@ -1,7 +1,10 @@
-import sqlconnect
+import backend.sqlconnect as sqlconnect
+
+connector, cursor = '', ''
 
 
-connector, cursor =  sqlconnect.connect('admin', 'hospital123')
+def connect_Op():
+    connector, cursor =  sqlconnect.connect('admin', 'hospital123')
 
 
 def print_Op():
@@ -22,6 +25,17 @@ def del_Op(condition):
         return 0
     except:
         print('Error')
+        return 1
+    
+def update_Op(condition):
+    try:
+        query = 'UPDATE patient_records SET %s = %s WHERE id = %s'
+        cursor.execute(query, condition)
+        connector.commit()
+        print('Updated')
+        return 0
+    except:
+        print ('Error')
         return 1
 
     

@@ -1,6 +1,8 @@
-import sqlconnect
+import backend.sqlconnect as sqlconnect
 
-connector, cursor = sqlconnect.connect('client')
+connector, cursor = '', ''
+def connect_Op():
+    connector, cursor = sqlconnect.connect('client')
 
 
 def insert_Op(record):
