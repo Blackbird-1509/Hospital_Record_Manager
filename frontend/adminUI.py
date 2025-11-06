@@ -1,5 +1,7 @@
 from PySide6.QtWidgets import QWidget, QPushButton, QTableWidget, QVBoxLayout, QTableWidgetItem, QHBoxLayout, QLabel, QComboBox, QLineEdit, QGridLayout
 import backend.admin as adminfunction
+import frontend.statsUI as statsUI
+import backend.stats as stats
 
 class window(QWidget):
     def __init__(self):
@@ -20,16 +22,19 @@ class window(QWidget):
         delete.clicked.connect(self.on_delete_click)
         refresh = QPushButton("Refresh")
         refresh.clicked.connect(self.refresher)
+        stats = QPushButton("Stats")
+        stats.clicked.connect(self.on_stats_click)
         
         inner_layout = QHBoxLayout()
         inner_layout.addWidget(update)
         inner_layout.addWidget(delete)
         inner_layout.addWidget(refresh)
+        inner_layout.addWidget(stats)
         layout = QVBoxLayout()
         layout.addLayout(inner_layout)
         layout.addWidget(self.table)
         self.setLayout(layout)
-        self.setFixedSize(770,500)
+        self.setFixedSize(840,500)
 
     def on_update_click(self):
         self.update = UpdateWin()
@@ -40,13 +45,18 @@ class window(QWidget):
         self.delete.show()
 
     def refresher(self):
-         self.table.clearContents()
-         self.data, self.headers = adminfunction.print_Op()
-         self.table.setRowCount(len(self.data))
-         for r, row in enumerate(self.data):
-            for c, val in enumerate(row):
-                self.table.setItem(r, c, QTableWidgetItem(str(val)))
-         
+        self.table.clearContents()
+        self.df = adminfunction.print_Op()
+        self.headers = self.df.columns.astype(str)
+        self.table.setRowCount(self.df.shape[0])
+        for row_index, row_data in self.df.iterrows():
+            for col_index, value in enumerate(row_data):
+                self.table.setItem(row_index, col_index, QTableWidgetItem(str(value)))
+    def on_stats_click(self):
+        stats.stats_calculate()
+        self.stat = statsUI.window()
+        self.stat.show()
+        self.close()
 
             
 class UpdateWin (QWidget):

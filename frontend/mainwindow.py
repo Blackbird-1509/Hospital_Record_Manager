@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QApplication, QMainWindow, QLabel, QWidget, QVBoxLayout, QComboBox, QPushButton
+from PySide6.QtWidgets import QMainWindow, QLabel, QWidget, QVBoxLayout, QComboBox, QPushButton
 from PySide6.QtCore import QSize, Qt, QMargins
 import frontend.clientUI as clientUI
 import frontend.authUI as authUI

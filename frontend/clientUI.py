@@ -22,7 +22,7 @@ class window(QWidget):
         self.dob_box = QLineEdit(placeholderText="DOB: YYYY-MM-DD")
         self.height_ = QLineEdit(placeholderText="Height (in cm)")
         self.height_.setValidator(self.double_validator)
-        self.weight = QLineEdit(placeholderText="Weight (in cm)")
+        self.weight = QLineEdit(placeholderText="Weight (in kg)")
         self.weight.setValidator(self.double_validator)
         self.blood_type = QComboBox(placeholderText="Blood Type")
         self.blood_type.addItems(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'])
@@ -81,6 +81,3 @@ class window(QWidget):
             self.success.setText("Successfully Added")
         else:
             self.success.setText("Error adding values. Please retry")
-
-
-        

@@ -1,4 +1,5 @@
 import backend.sqlconnect as sqlconnect
+import pandas as pd
 
 connector, cursor = '', ''
 
@@ -13,7 +14,8 @@ def print_Op():
         query = 'SELECT * FROM patient_records'
         cursor.execute(query)
         response = cursor.fetchall()
-        return response, cursor.column_names
+        df = pd.DataFrame(response, columns=cursor.column_names)
+        return df
     except:
         return 1
 
