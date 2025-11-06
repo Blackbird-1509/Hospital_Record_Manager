@@ -4,8 +4,6 @@ import matplotlib
 
 matplotlib.use("Agg")
 
-
-
 #Gender Ratio in Different Age Groups
 def stats_calculate():
     connector, cur = sqlconnect.connect('admin', 'hospital123')
@@ -27,7 +25,8 @@ def stats_calculate():
     mpl.legend()
     mpl.savefig("output1.jpg")
     mpl.close()
-    #blood group distribution
+
+#blood group distribution
     cur.execute("select blood_type,count(*) from patient_records group by blood_type")
     b=cur.fetchall()
     bt=[]
@@ -38,7 +37,8 @@ def stats_calculate():
     mpl.pie(btc,autopct=lambda pct: f"{pct/100*sum(btc):.2f}%",labels=bt,wedgeprops={'linewidth': 1, 'edgecolor': "black"})
     mpl.savefig("output2.jpg")
     mpl.close()
-    #bmi vs age
+
+#bmi vs age
     cur.execute("select age,weight,height*height from patient_records")
     bmi=[]
     age=[]

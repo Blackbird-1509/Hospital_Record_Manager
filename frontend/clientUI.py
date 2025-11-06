@@ -12,7 +12,6 @@ class window(QWidget):
         self.setWindowTitle("Patient Form")
         self.age_validator = QIntValidator(1,150)
         self.double_validator = QDoubleValidator(0, 500, 3)
-       
         
         self.name_box = QLineEdit(placeholderText="Name")
         self.age_box = QLineEdit(placeholderText="Age")
@@ -34,11 +33,9 @@ class window(QWidget):
         font.setBold(True)
         font.setPointSize(18)
         heading.setFont(font)
-        
         self.success = QLabel("")
         font.setPointSize(10)
         self.success.setFont(font)
-
 
         outer_layout = QVBoxLayout()
         layout = QGridLayout()
@@ -51,7 +48,6 @@ class window(QWidget):
         layout.setRowStretch(0,1)
         layout.setRowStretch(2,1)
         layout.setRowStretch(3,1)
-
         outer_layout.addWidget(heading, alignment=Qt.AlignmentFlag.AlignCenter)
         layout.addWidget(self.name_box, 1,0)
         layout.addWidget(self.age_box, 1,1)
@@ -61,10 +57,8 @@ class window(QWidget):
         layout.addWidget(self.weight, 2, 1)
         layout.addWidget(self.blood_type, 2,2)
         layout.addWidget(self.confirm_button, 2,3)
-
         outer_layout.addLayout(layout)
         outer_layout.addWidget(self.success, alignment=Qt.AlignmentFlag.AlignCenter)
-
         self.setLayout(outer_layout)
 
     def confirm_clicked(self):

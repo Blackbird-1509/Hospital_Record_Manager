@@ -8,6 +8,3 @@ def connect(user, password=''):
     else:
         print('Connection failed')
         return 0
-
-
-

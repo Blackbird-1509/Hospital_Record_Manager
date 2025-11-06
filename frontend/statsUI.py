@@ -8,20 +8,15 @@ class window(QWidget):
         super().__init__()
 
         self.counter = 1
-        
         self.image_view = QLabel()
-
         self.image_set(self.counter)
-        
 
         self.back = QPushButton("Back")
         if self.counter == 1:
             self.back.setDisabled(True)
+        self.back.clicked.connect(self.on_back_click)        
         self.next = QPushButton("Next")
-        self.back.clicked.connect(self.on_back_click)
         self.next.clicked.connect(self.on_next_click)
-        
-
         
         inner_layout = QHBoxLayout()
         inner_layout.addWidget(self.back)
@@ -38,6 +33,7 @@ class window(QWidget):
         self.image_set(self.counter)
         if self.counter >1:
             self.back.setDisabled(False)
+
     def on_back_click(self):
         self.counter-=1
         if self.counter<3:
@@ -45,9 +41,7 @@ class window(QWidget):
         self.image_set(self.counter)
         if self.counter ==1:
             self.back.setDisabled(True)
+
     def image_set(self, counter):
         self.image = QPixmap(f"output{counter}.jpg")
         self.image_view.setPixmap(self.image)
-
-
-

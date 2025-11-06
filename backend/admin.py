@@ -3,11 +3,9 @@ import pandas as pd
 
 connector, cursor = '', ''
 
-
 def connect_Op():
     global connector, cursor
     connector, cursor =  sqlconnect.connect('admin', 'hospital123')
-
 
 def print_Op():
     try:
@@ -52,4 +50,3 @@ def count_Op():
     except:
         print("Error getting database count")
         return(100, 8)
-    

@@ -1,4 +1,5 @@
 from PySide6.QtWidgets import QWidget, QPushButton, QTableWidget, QVBoxLayout, QTableWidgetItem, QHBoxLayout, QLabel, QComboBox, QLineEdit, QGridLayout
+
 import backend.admin as adminfunction
 import frontend.statsUI as statsUI
 import backend.stats as stats
@@ -9,8 +10,6 @@ class window(QWidget):
 
         adminfunction.connect_Op()
         self.row, self.col = adminfunction.count_Op()
-        
-
         self.table = QTableWidget(rowCount=self.row, columnCount=self.col)
         self.refresher()
         self.table.setHorizontalHeaderLabels(self.headers)
@@ -30,6 +29,7 @@ class window(QWidget):
         inner_layout.addWidget(delete)
         inner_layout.addWidget(refresh)
         inner_layout.addWidget(stats)
+
         layout = QVBoxLayout()
         layout.addLayout(inner_layout)
         layout.addWidget(self.table)
@@ -52,13 +52,14 @@ class window(QWidget):
         for row_index, row_data in self.df.iterrows():
             for col_index, value in enumerate(row_data):
                 self.table.setItem(row_index, col_index, QTableWidgetItem(str(value)))
+
     def on_stats_click(self):
         stats.stats_calculate()
         self.stat = statsUI.window()
         self.stat.show()
         self.close()
 
-            
+
 class UpdateWin (QWidget):
     def __init__(self):
         super().__init__()
@@ -69,18 +70,17 @@ class UpdateWin (QWidget):
         base = QLabel("Choose what to update")
         self.choice = QComboBox(placeholderText="Filter:")
         self.choice.addItems(filter_list)
+        self.choice.currentTextChanged.connect(self.activate_filter)
         self.top = QLabel("<font color = grey>Choose id to update:</font>")
         self.id_up = QLineEdit(placeholderText="id")
         self.id_up.setEnabled(False)
         self.change = QLineEdit(placeholderText="Value")
         self.change_text = QLabel("<font coler = grey>Enter valid value</font>")
         self.change.setEnabled(False)
-        self.choice.currentTextChanged.connect(self.activate_filter)
         self.cancelBtn = QPushButton("Cancel")
         self.cancelBtn.clicked.connect(self.cancel)
         self.updateBtn = QPushButton("Update")
         self.updateBtn.clicked.connect(self.update)
-
 
         layout = QGridLayout()
         layout.addWidget(base,0,0)
@@ -91,8 +91,6 @@ class UpdateWin (QWidget):
         layout.addWidget(self.change, 2,1)
         layout.addWidget(self.cancelBtn, 3,0)
         layout.addWidget(self.updateBtn, 3,1)
-        
-
 
         self.setLayout(layout)
     
@@ -101,15 +99,15 @@ class UpdateWin (QWidget):
             self.id_up.setEnabled(True)
             self.change_text.setText("Enter valid value")
             self.change.setEnabled(True)
+
     def cancel(self):
          self.close()
+
     def update(self):
         choice = self.choice.currentText()
         value = self.change.text()
         id = int(self.id_up.text())
         print((choice, value, id))
-        
-
         adminfunction.update_Op((choice, value, id))
     
 
@@ -124,20 +122,13 @@ class DeleteWin(QWidget):
         delete.clicked.connect(self.delete)
         cancel.clicked.connect(obj.cancel)
 
-
-
         layout = QGridLayout()
         layout.addWidget(base,0,0)
         layout.addWidget(self.id_del,0,1)
         layout.addWidget(cancel, 1,0)
         layout.addWidget(delete,1,1)
-
         self.setLayout(layout)
 
     def delete(self):
         id = int(self.id_del.text())
         adminfunction.del_Op(id)
-
-
-
-

@@ -1,10 +1,10 @@
 import backend.sqlconnect as sqlconnect
 
 connector, cursor = '', ''
+
 def connect_Op():
     global connector,cursor 
     connector, cursor = sqlconnect.connect('client')
-
 
 def insert_Op(record):
     global connector, cursor
@@ -20,9 +20,3 @@ def insert_Op(record):
     
 def check_Op(name, age, gender, dob, height, weight, blood_type):
     return 0
-
-
-    
-
-
-#insert_Op(('Dave', 32, 'M', '2007-09-15', 168.5, 57, 'O+'))

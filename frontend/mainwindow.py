@@ -9,14 +9,11 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("Hospital Record Manager")
         self.setFixedSize(QSize(500,500))
 
-
         title = QLabel("Welcome to Hospital Record Manager")
         font = title.font()
         font.setPointSize(16)
         font.setBold(True)
         title.setFont(font)
-        
-
         subtitle = QLabel("You are:")
         font = subtitle.font()
         font.setPointSize(10)
@@ -31,7 +28,6 @@ class MainWindow(QMainWindow):
         confirmButton.setBaseSize(40,40)
         confirmButton.setText("Confirm")
         confirmButton.clicked.connect(self.confirm_clicked)
-
 
         layout = QVBoxLayout()
         layout.setContentsMargins(QMargins(20,80,20,80))

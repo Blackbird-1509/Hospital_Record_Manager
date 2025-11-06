@@ -13,7 +13,6 @@ class window(QWidget):
         font.setPointSize(20)
         font.setBold(True)
         log.setFont(font)
-
         self.log_fail = QLabel("")
         font.setPointSize(10)
         self.log_fail.setFont(font)
@@ -35,11 +34,8 @@ class window(QWidget):
         layout.addWidget(self.log_fail, alignment=Qt.AlignmentFlag.AlignCenter)
         layout.setSpacing(10)
         layout.setContentsMargins(0, 70, 0, 30)
-
         self.setLayout(layout)
         self.setFixedSize(500,500)
-
-
 
     def login_check(self):
         username = self.user.text()
