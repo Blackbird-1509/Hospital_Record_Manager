@@ -17,6 +17,3 @@ def insert_Op(record):
     except:
         print('Error while taking input')
         return 1
-    
-def check_Op(name, age, gender, dob, height, weight, blood_type):
-    return 0

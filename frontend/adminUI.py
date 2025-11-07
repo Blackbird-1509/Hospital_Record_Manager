@@ -1,4 +1,5 @@
 from PySide6.QtWidgets import QWidget, QPushButton, QTableWidget, QVBoxLayout, QTableWidgetItem, QHBoxLayout, QLabel, QComboBox, QLineEdit, QGridLayout
+from PySide6.QtCore import Qt
 
 import backend.admin as adminfunction
 import frontend.statsUI as statsUI
@@ -82,17 +83,19 @@ class UpdateWin (QWidget):
         self.updateBtn = QPushButton("Update")
         self.updateBtn.clicked.connect(self.update)
 
-        layout = QGridLayout()
-        layout.addWidget(base,0,0)
-        layout.addWidget(self.choice,0,1)
-        layout.addWidget(self.top,1,0)
-        layout.addWidget(self.id_up,1,1)
-        layout.addWidget(self.change_text,2,0)
-        layout.addWidget(self.change, 2,1)
-        layout.addWidget(self.cancelBtn, 3,0)
-        layout.addWidget(self.updateBtn, 3,1)
+        self.layout = QGridLayout()
+        self.layout.addWidget(base,0,0)
+        self.layout.addWidget(self.choice,0,1)
+        self.layout.addWidget(self.top,1,0)
+        self.layout.addWidget(self.id_up,1,1)
+        self.layout.addWidget(self.change_text,2,0)
+        self.layout.addWidget(self.change, 2,1)
+        self.layout.addWidget(self.cancelBtn, 3,0)
+        self.layout.addWidget(self.updateBtn, 3,1)
+        self.outer_layout = QVBoxLayout()
+        self.outer_layout.addLayout(self.layout)
 
-        self.setLayout(layout)
+        self.setLayout(self.outer_layout)
     
     def activate_filter(self):
             self.top.setText("Choose id to update:")
@@ -108,7 +111,12 @@ class UpdateWin (QWidget):
         value = self.change.text()
         id = int(self.id_up.text())
         print((choice, value, id))
-        adminfunction.update_Op((choice, value, id))
+        check = adminfunction.update_Op((choice, value, id))
+        if check == 0:
+            self.close()
+        else:
+            self.error = QLabel("<font color = red>Error</font>")
+            self.outer_layout.addWidget(self.error, alignment=Qt.AlignmentFlag.AlignCenter)
     
 
 class DeleteWin(QWidget):
