@@ -130,13 +130,22 @@ class DeleteWin(QWidget):
         delete.clicked.connect(self.delete)
         cancel.clicked.connect(obj.cancel)
 
-        layout = QGridLayout()
-        layout.addWidget(base,0,0)
-        layout.addWidget(self.id_del,0,1)
-        layout.addWidget(cancel, 1,0)
-        layout.addWidget(delete,1,1)
-        self.setLayout(layout)
+        self.layout = QGridLayout()
+        self.layout.addWidget(base,0,0)
+        self.layout.addWidget(self.id_del,0,1)
+        self.layout.addWidget(cancel, 1,0)
+        self.layout.addWidget(delete,1,1)
+
+        self.outer_layout = QVBoxLayout()
+        self.outer_layout.addLayout(self.layout)
+
+        self.setLayout(self.outer_layout)        
 
     def delete(self):
         id = int(self.id_del.text())
-        adminfunction.del_Op(id)
+        check = adminfunction.del_Op(id)
+        if check == 0:
+            self.close()
+        else:
+            self.error = QLabel("<font color = red>Error</font>")
+            self.outer_layout.addWidget(self.error, alignment=Qt.AlignmentFlag.AlignCenter)
